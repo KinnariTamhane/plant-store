@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import Product from './Product';
-
+import { updatePlant, clearList } from '../store';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function ProductListing () {
 
     const [plantData, setPlantData] = useState([]);
+
+    const dispatch = useDispatch();
+
+    let navigate = useNavigate();
 
     useEffect(()=>{
         const  fetchPlantData = async() =>{
@@ -21,7 +27,9 @@ function ProductListing () {
     },[])
 
     const choosenPlant = (plant) =>{
-
+        dispatch(clearList())
+        dispatch(updatePlant(plant));
+        navigate('/pdp');
     }
 
     return(
@@ -29,7 +37,7 @@ function ProductListing () {
                 {
                     plantData.length > 0 && plantData.map((item) => {
                        return(
-                            <Product key={item.id} plant={item} selectedItem={choosenPlant}/>
+                            <Product key={item.id} plant={item} selectedPlant={() => choosenPlant(item)}/>
                        )
                     })
                 }
