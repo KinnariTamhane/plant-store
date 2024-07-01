@@ -5,7 +5,7 @@ import Product from '../components/Product';
 function ProductDetails () {
     const plantItem = useSelector((state) => state.plant.items);
     return(
-        <>
+        <div className='mt-36'>
          {
             plantItem && plantItem.map((item)=>{
                 return(
@@ -14,7 +14,7 @@ function ProductDetails () {
             })
             
          }
-        </>
+        </div>
     )
 
 }
